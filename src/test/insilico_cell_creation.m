@@ -11,7 +11,7 @@ subpop{1}.placement=Random_Placement();
 
 add_object(subpop{1},'nucleus');
 subpop{1}.objects.nucleus.model=Nucleus_Model;
-set(subpop{1}.objects.nucleus.model,'radius',15,'eccentricity',0.7);
+set(subpop{1}.objects.nucleus.model,'radius',10,'eccentricity',0.7);
 
 %add_object(subpop{1},'nucleus');
 % subpop{1}.objects.nucleus.model=SLML_Nucleus_Model;
@@ -21,7 +21,7 @@ set(subpop{1}.objects.nucleus.model,'radius',15,'eccentricity',0.7);
 
 add_object(subpop{1},'cytoplasm');
 subpop{1}.objects.cytoplasm.model=Centered_Cytoplasm_Model;
-set(subpop{1}.objects.cytoplasm.model,'radius',60,'eccentricity',0.9,'randomness',0.3,'centered_around',subpop{1}.objects.nucleus);
+set(subpop{1}.objects.cytoplasm.model,'radius',20,'eccentricity',0.9,'randomness',0.3,'centered_around',subpop{1}.objects.nucleus);
 
 
 add_object(subpop{1},'lipid_droplets');
@@ -53,13 +53,13 @@ markers1=subpop{1}.markers;
 
 add_marker(subpop{1},'DAPI',Colors.Blue);
 op=Constant_Marker_Level();
-set(op,'mean_level',0.5,'sd_level',0.1);
+set(op,'mean_level',1,'sd_level',0);
 markers1.DAPI.nucleus.AddOperation(op);
 %op=Perlin_Texture();
 %set(op,'length_scale',4,'frequency_falloff',1,'amplitude',0.25);
 %markers1.DAPI.nucleus.AddOperation(op);
 % op=Constant_Marker_Level();
-% set(op,'mean_level',0.5,'sd_level',0.1);
+% set(op,'mean_level',1,'sd_level',0);
 % markers1.DAPI.cytoplasm.AddOperation(op);
 op=Constant_Dependant_Marker_Level();
 set(op,'marker',markers1.DAPI.cytoplasm,'region',subpop{1}.objects.nucleus,'slope',0.5);
@@ -67,7 +67,7 @@ markers1.DAPI.nucleus.AddOperation(op);
 
 add_marker(subpop{1},'Actin',Colors.Green);
 op=Constant_Marker_Level();
-set(op,'mean_level',0.1,'sd_level',0);
+set(op,'mean_level',1,'sd_level',0);
 markers1.Actin.cytoplasm.AddOperation(op);
 % op=Perlin_Texture();
 % markers1.Actin.cytoplasm.AddOperation(op);
@@ -80,7 +80,7 @@ markers1.Actin.cytoplasm.AddOperation(op);
 op=Perlin_Texture();
 markers1.Actin.cytoplasm.AddOperation(op);
 op=Constant_Marker_Level();
-set(op,'mean_level',0.8,'sd_level',0.1);
+set(op,'mean_level',1,'sd_level',0.1);
 markers1.Actin.lipid_droplets.AddOperation(op);
 %op=Turbulent_Texture();
 %markers1.Actin.cytoplasm.AddOperation(op);
@@ -101,7 +101,7 @@ op=Constant_Marker_Level();
 % set(op,'mean_level',0,'sd_level',0);
 % markers1.MT.lipid_droplets.AddOperation(op);
 op=Constant_Marker_Level();
-set(op,'mean_level',0.1,'sd_level',0);
+set(op,'mean_level',1,'sd_level',0);
 markers1.MT.fiber.AddOperation(op);
 op=Perlin_Texture();
 set(op,'length_scale',6,'amplitude',0.1,'add_or_multiply','Add');
@@ -130,16 +130,16 @@ markers1=subpop{2}.markers;
 
 add_marker(subpop{2},'DAPI',Colors.Blue);
 op=Constant_Marker_Level();
-set(op,'mean_level',0.5,'sd_level',0.1);
+set(op,'mean_level',1,'sd_level',0.1);
 markers1.DAPI.cytoplasm.AddOperation(op);
 op=Constant_Dependant_Marker_Level();
 set(op,'marker',markers1.DAPI.cytoplasm,'region',subpop{2}.objects.nucleus,'slope',0.5);
 markers1.DAPI.nucleus.AddOperation(op);
 
 add_marker(subpop{2},'Actin',Colors.Green);
-% op=Constant_Marker_Level();
-% set(op,'mean_level',0.7,'sd_level',0.1);
-% markers1.Actin.cytoplasm.AddOperation(op);
+op=Constant_Marker_Level();
+ set(op,'mean_level',1,'sd_level',0.1);
+ markers1.Actin.cytoplasm.AddOperation(op);
 %op=Cell_Density_Dependant_Marker_Level();
 %set(op,'falloff_type','Exponential','falloff_coefficient',2,'increasing_or_decreasing','Increasing');
 %markers1.Actin.cytoplasm.AddOperation(op);
@@ -157,7 +157,7 @@ add_marker(subpop{2},'Actin',Colors.Green);
 
 
 op=Constant_Marker_Level();
-set(op,'mean_level',0,'sd_level',0);
+set(op,'mean_level',1,'sd_level',0);
 markers1.Actin.nucleus.AddOperation(op);
 
 subpop{2}.compositing=Default_Compositing();
@@ -201,8 +201,8 @@ simucell_data.image_artifacts{2}=op;
 set(op,'falloff_type','Sigmoidal','falloff_radius',50);
 
 
-simucell_data.population_fractions=[1,0];
-simucell_data.number_of_cells=5;
+simucell_data.population_fractions=[0.5,0.5];
+simucell_data.number_of_cells=10;
 simucell_data.simucell_image_size=[500,500];
 
 simucell_data.subpopulations=subpop;
