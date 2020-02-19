@@ -117,7 +117,7 @@ set(subpop{2}.placement,'boundary',100);
 
 add_object(subpop{2},'cytoplasm');
 subpop{2}.objects.cytoplasm.model=Cytoplasm_Model;
-set(subpop{2}.objects.cytoplasm.model,'radius',100,'eccentricity',1);
+set(subpop{2}.objects.cytoplasm.model,'radius',100,'eccentricity',0.9);
 
 add_object(subpop{2},'nucleus');
 subpop{2}.objects.nucleus.model=Centered_Nucleus_Model;
@@ -129,32 +129,22 @@ add_marker(subpop{2},'DAPI',Colors.Blue);
 op=Constant_Marker_Level();
 set(op,'mean_level',0.5,'sd_level',0.1);
 markers1.DAPI.cytoplasm.AddOperation(op);
+
 op=Constant_Dependant_Marker_Level();
 set(op,'marker',markers1.DAPI.cytoplasm,'region',subpop{2}.objects.nucleus,'slope',0.5);
 markers1.DAPI.nucleus.AddOperation(op);
 
 add_marker(subpop{2},'Actin',Colors.Green);
-% op=Constant_Marker_Level();
-% set(op,'mean_level',0.7,'sd_level',0.1);
+ op=Constant_Marker_Level();
+ set(op,'mean_level',1,'sd_level',0.1);
 % markers1.Actin.cytoplasm.AddOperation(op);
 %op=Cell_Density_Dependant_Marker_Level();
 %set(op,'falloff_type','Exponential','falloff_coefficient',2,'increasing_or_decreasing','Increasing');
 %markers1.Actin.cytoplasm.AddOperation(op);
 
 
-% op=Linear_Marker_Gradient();
-% set(op,'falloff_type','Linear','falloff_coefficient',0.5);
-% markers1.Actin.cytoplasm.AddOperation(op);
-% op=Distance_To_Edge_Marker_Gradient();
-% set(op,'falloff_type','Gaussian','falloff_coefficient',10,'increasing_or_decreasing','Decreasing');
-% markers1.Actin.cytoplasm.AddOperation(op);
-% op=Distance_To_Shape_Marker_Gradient();
-% set(op,'distance_to',subpop{2}.objects.nucleus,'falloff_type','Exponential','falloff_coefficient',2,'increasing_or_decreasing','Decreasing');
-% markers1.Actin.cytoplasm.AddOperation(op);
-
-
 op=Constant_Marker_Level();
-set(op,'mean_level',0,'sd_level',0);
+set(op,'mean_level',1,'sd_level',0);
 markers1.Actin.nucleus.AddOperation(op);
 
 subpop{2}.compositing=Default_Compositing();
