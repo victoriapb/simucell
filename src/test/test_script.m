@@ -1,4 +1,4 @@
-function [a,b,c,d,e]=test_script()
+function a=test_script()
 subpop=cell(0);
 
 
@@ -55,9 +55,9 @@ add_marker(subpop{1},'DAPI',Colors.Blue);
 op=Constant_Marker_Level();
 set(op,'mean_level',0.5,'sd_level',0.1);
 markers1.DAPI.nucleus.AddOperation(op);
-op=Perlin_Texture();
-set(op,'length_scale',4,'frequency_falloff',1,'amplitude',0.25);
-markers1.DAPI.nucleus.AddOperation(op);
+%op=Perlin_Texture();
+%set(op,'length_scale',4,'frequency_falloff',1,'amplitude',0.25);
+%markers1.DAPI.nucleus.AddOperation(op);
 % op=Constant_Marker_Level();
 % set(op,'mean_level',0.5,'sd_level',0.1);
 % markers1.DAPI.cytoplasm.AddOperation(op);
@@ -140,9 +140,9 @@ add_marker(subpop{2},'Actin',Colors.Green);
 % op=Constant_Marker_Level();
 % set(op,'mean_level',0.7,'sd_level',0.1);
 % markers1.Actin.cytoplasm.AddOperation(op);
-op=Cell_Density_Dependant_Marker_Level();
-set(op,'falloff_type','Exponential','falloff_coefficient',2,'increasing_or_decreasing','Increasing');
-markers1.Actin.cytoplasm.AddOperation(op);
+%op=Cell_Density_Dependant_Marker_Level();
+%set(op,'falloff_type','Exponential','falloff_coefficient',2,'increasing_or_decreasing','Increasing');
+%markers1.Actin.cytoplasm.AddOperation(op);
 
 
 % op=Linear_Marker_Gradient();
@@ -214,6 +214,6 @@ simucell_data.overlap=overlap;
 % [obv_del,all_del]=simucell_data.subpopulations{1}.calculate_all_dependancies(...
 %     simucell_data.subpopulations{1}.markers.DAPI);
 % 
-[a,b,c,d,e]=simucell_engine(simucell_data);
+a=simucell_engine(simucell_data);
 
 end
