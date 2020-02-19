@@ -53,7 +53,7 @@ markers1=subpop{1}.markers;
 
 add_marker(subpop{1},'DAPI',Colors.Blue);
 op=Constant_Marker_Level();
-set(op,'mean_level',0.5,'sd_level',0.1);
+set(op,'mean_level',1,'sd_level',0.01);
 markers1.DAPI.nucleus.AddOperation(op);
 %op=Perlin_Texture();
 %set(op,'length_scale',4,'frequency_falloff',1,'amplitude',0.25);
@@ -67,7 +67,7 @@ markers1.DAPI.nucleus.AddOperation(op);
 
 add_marker(subpop{1},'Actin',Colors.Green);
 op=Constant_Marker_Level();
-set(op,'mean_level',0.1,'sd_level',0);
+set(op,'mean_level',1,'sd_level',0);
 markers1.Actin.cytoplasm.AddOperation(op);
 % op=Perlin_Texture();
 % markers1.Actin.cytoplasm.AddOperation(op);
@@ -80,20 +80,20 @@ markers1.Actin.cytoplasm.AddOperation(op);
 op=Perlin_Texture();
 markers1.Actin.cytoplasm.AddOperation(op);
 op=Constant_Marker_Level();
-set(op,'mean_level',0.8,'sd_level',0.1);
+set(op,'mean_level',1,'sd_level',0.01);
 markers1.Actin.lipid_droplets.AddOperation(op);
 %op=Turbulent_Texture();
 %markers1.Actin.cytoplasm.AddOperation(op);
 
-% op=Constant_Dependant_Marker_Level();
-% set(op,'slope',-1,'intercept',0.5,'marker',markers1.Actin.cytoplasm,'region',subpop{1}.objects.cytoplasm);
-% markers1.Actin.nucleus.AddOperation(op);
+ op=Constant_Dependant_Marker_Level();
+ set(op,'slope',-1,'intercept',0.5,'marker',markers1.Actin.cytoplasm,'region',subpop{1}.objects.cytoplasm);
+ markers1.Actin.nucleus.AddOperation(op);
 
 
 add_marker(subpop{1},'MT',Colors.Red);
 op=Constant_Marker_Level();
-% set(op,'mean_level',0,'sd_level',0);
-% markers1.MT.nucleus.AddOperation(op);
+ set(op,'mean_level',1,'sd_level',0);
+ markers1.MT.nucleus.AddOperation(op);
 % op=Constant_Marker_Level();
 % set(op,'mean_level',0,'sd_level',0);
 % markers1.MT.cytoplasm.AddOperation(op);
@@ -101,7 +101,7 @@ op=Constant_Marker_Level();
 % set(op,'mean_level',0,'sd_level',0);
 % markers1.MT.lipid_droplets.AddOperation(op);
 op=Constant_Marker_Level();
-set(op,'mean_level',0.1,'sd_level',0);
+set(op,'mean_level',1,'sd_level',0);
 markers1.MT.fiber.AddOperation(op);
 op=Perlin_Texture();
 set(op,'length_scale',6,'amplitude',0.1,'add_or_multiply','Add');
@@ -171,13 +171,13 @@ overlap.AddOverlap({subpop{1}.objects.cytoplasm,subpop{2}.objects.cytoplasm},0.0
 
 
 
-op=Out_Of_Focus_Cells();
-set(op,'fraction_blurred',0.05,'blur_radius',5);
-subpop{1}.add_cell_artifact(op);
+%op=Out_Of_Focus_Cells();
+%set(op,'fraction_blurred',0.05,'blur_radius',5);
+%subpop{1}.add_cell_artifact(op);
 
-op=Out_Of_Focus_Cells();
-set(op,'fraction_blurred',0.05,'blur_radius',5);
-subpop{2}.add_cell_artifact(op);
+%op=Out_Of_Focus_Cells();
+%set(op,'fraction_blurred',0.05,'blur_radius',5);
+%subpop{2}.add_cell_artifact(op);
 
 % op=Cell_Staining_Artifacts();
 % set(op,'fraction_unstained',0.05,'unstained_multiplier',0.05,'fraction_bleached',0.05,'bleaching_multiplier',50);
@@ -191,14 +191,14 @@ subpop{2}.add_cell_artifact(op);
 
 simucell_data.image_artifacts=cell(0);
 op=Add_Basal_Brightness();
-set(op,'basal_level',0.15);
+set(op,'basal_level',0.01);
 simucell_data.image_artifacts{1}=op;
 % op=Linear_Image_Gradient();
 % simucell_data.image_artifacts{2}=op;
 % set(op,'falloff_type','Exponential','falloff_coefficient',0.1);
-op=Radial_Image_Gradient();
-simucell_data.image_artifacts{2}=op;
-set(op,'falloff_type','Sigmoidal','falloff_radius',50);
+%op=Radial_Image_Gradient();
+%simucell_data.image_artifacts{2}=op;
+%set(op,'falloff_type','Sigmoidal','falloff_radius',50);
 
 
 simucell_data.population_fractions=[1,0];
@@ -206,7 +206,7 @@ simucell_data.number_of_cells=5;
 simucell_data.simucell_image_size=[500,500];
 
 simucell_data.subpopulations=subpop;
-simucell_data.overlap=overlap;
+%simucell_data.overlap=overlap;
 % 
 % [obv_del,all_del]=simucell_data.subpopulations{1}.calculate_all_dependancies(...
 %     simucell_data.subpopulations{1}.objects.lipid_droplets);
