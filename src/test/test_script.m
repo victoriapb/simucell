@@ -2,6 +2,9 @@ function a=test_script()
 subpop=cell(0);
 
 
+
+%setting the cell position
+
 %subpopulation 1
 subpop{1}=Subpopulation();
 subpop{1}.placement=Random_Placement();
@@ -11,17 +14,11 @@ subpop{1}.placement=Random_Placement();
 
 add_object(subpop{1},'nucleus');
 subpop{1}.objects.nucleus.model=Nucleus_Model;
-set(subpop{1}.objects.nucleus.model,'radius',15,'eccentricity',0.7);
-
-%add_object(subpop{1},'nucleus');
-% subpop{1}.objects.nucleus.model=SLML_Nucleus_Model;
-%set(subpop{1}.objects.nucleus.model,'radius',30);
-%set(subpop{1}.objects.nucleus.model,'radius',30,...
-%    'filename','/home/srajaram/Work/Code/SimuCell/Code/src/test/test_slml/endosome.mat');
+set(subpop{1}.objects.nucleus.model,'radius',2,'eccentricity',0.1);
 
 add_object(subpop{1},'cytoplasm');
 subpop{1}.objects.cytoplasm.model=Centered_Cytoplasm_Model;
-set(subpop{1}.objects.cytoplasm.model,'radius',60,'eccentricity',0.9,'randomness',0.3,'centered_around',subpop{1}.objects.nucleus);
+set(subpop{1}.objects.cytoplasm.model,'radius',10,'eccentricity',0.1,'randomness',0.9,'centered_around',subpop{1}.objects.nucleus);
 
 
 add_object(subpop{1},'lipid_droplets');
@@ -53,7 +50,7 @@ markers1=subpop{1}.markers;
 
 add_marker(subpop{1},'DAPI',Colors.Blue);
 op=Constant_Marker_Level();
-set(op,'mean_level',1,'sd_level',0.01);
+set(op,'mean_level',1,'sd_level',0);
 markers1.DAPI.nucleus.AddOperation(op);
 %op=Perlin_Texture();
 %set(op,'length_scale',4,'frequency_falloff',1,'amplitude',0.25);
@@ -61,9 +58,9 @@ markers1.DAPI.nucleus.AddOperation(op);
 % op=Constant_Marker_Level();
 % set(op,'mean_level',0.5,'sd_level',0.1);
 % markers1.DAPI.cytoplasm.AddOperation(op);
-op=Constant_Dependant_Marker_Level();
-set(op,'marker',markers1.DAPI.cytoplasm,'region',subpop{1}.objects.nucleus,'slope',0.5);
-markers1.DAPI.nucleus.AddOperation(op);
+%op=Constant_Dependant_Marker_Level();
+%set(op,'marker',markers1.DAPI.cytoplasm,'region',subpop{1}.objects.nucleus,'slope',0.5);
+%markers1.DAPI.nucleus.AddOperation(op);
 
 add_marker(subpop{1},'Actin',Colors.Green);
 op=Constant_Marker_Level();
@@ -80,14 +77,14 @@ markers1.Actin.cytoplasm.AddOperation(op);
 op=Perlin_Texture();
 markers1.Actin.cytoplasm.AddOperation(op);
 op=Constant_Marker_Level();
-set(op,'mean_level',1,'sd_level',0.01);
+set(op,'mean_level',1,'sd_level',0);
 markers1.Actin.lipid_droplets.AddOperation(op);
 %op=Turbulent_Texture();
 %markers1.Actin.cytoplasm.AddOperation(op);
 
- op=Constant_Dependant_Marker_Level();
- set(op,'slope',-1,'intercept',0.5,'marker',markers1.Actin.cytoplasm,'region',subpop{1}.objects.cytoplasm);
- markers1.Actin.nucleus.AddOperation(op);
+ %op=Constant_Dependant_Marker_Level();
+ %set(op,'slope',-1,'intercept',0.5,'marker',markers1.Actin.cytoplasm,'region',subpop{1}.objects.cytoplasm);
+ %markers1.Actin.nucleus.AddOperation(op);
 
 
 add_marker(subpop{1},'MT',Colors.Red);
@@ -104,8 +101,8 @@ op=Constant_Marker_Level();
 set(op,'mean_level',1,'sd_level',0);
 markers1.MT.fiber.AddOperation(op);
 op=Perlin_Texture();
-set(op,'length_scale',6,'amplitude',0.1,'add_or_multiply','Add');
-markers1.MT.fiber.AddOperation(op);
+%set(op,'length_scale',6,'amplitude',0.1,'add_or_multiply','Add');
+%markers1.MT.fiber.AddOperation(op);
 % op=Distance_To_Edge_Marker_Gradient();
 % markers1.MT.fiber.AddOperation(op);
 
@@ -120,11 +117,11 @@ set(subpop{2}.placement,'boundary',100);
 
 add_object(subpop{2},'cytoplasm');
 subpop{2}.objects.cytoplasm.model=Cytoplasm_Model;
-set(subpop{2}.objects.cytoplasm.model,'radius',40,'eccentricity',0.2);
+set(subpop{2}.objects.cytoplasm.model,'radius',100,'eccentricity',1);
 
 add_object(subpop{2},'nucleus');
 subpop{2}.objects.nucleus.model=Centered_Nucleus_Model;
-set(subpop{2}.objects.nucleus.model,'centered_around',subpop{2}.objects.cytoplasm,'eccentricity',0);
+set(subpop{2}.objects.nucleus.model,'centered_around',subpop{2}.objects.cytoplasm,'eccentricity',1);
 
 markers1=subpop{2}.markers;
 
@@ -165,9 +162,9 @@ set(subpop{2}.compositing,'container_weight',0);
 
 
 
-overlap=Overlap_Specification;
-overlap.AddOverlap({subpop{1}.objects.cytoplasm},0.3);
-overlap.AddOverlap({subpop{1}.objects.cytoplasm,subpop{2}.objects.cytoplasm},0.05);
+%overlap=Overlap_Specification;
+%overlap.AddOverlap({subpop{1}.objects.cytoplasm},0.3);
+%overlap.AddOverlap({subpop{1}.objects.cytoplasm,subpop{2}.objects.cytoplasm},0.05);
 
 
 
@@ -201,9 +198,9 @@ simucell_data.image_artifacts{1}=op;
 %set(op,'falloff_type','Sigmoidal','falloff_radius',50);
 
 
-simucell_data.population_fractions=[1,0];
-simucell_data.number_of_cells=5;
-simucell_data.simucell_image_size=[500,500];
+simucell_data.population_fractions=[0.5,0.5];
+simucell_data.number_of_cells=40;
+simucell_data.simucell_image_size=[400,400];
 
 simucell_data.subpopulations=subpop;
 %simucell_data.overlap=overlap;
