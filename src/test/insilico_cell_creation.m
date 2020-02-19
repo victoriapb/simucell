@@ -15,7 +15,7 @@ set(subpop{1}.objects.nucleus.model,'radius',1,'eccentricity',0.7);
 
 add_object(subpop{1},'cytoplasm');
 subpop{1}.objects.cytoplasm.model=Centered_Cytoplasm_Model;
-set(subpop{1}.objects.cytoplasm.model,'radius',20,'eccentricity',0.9,'randomness',0.3,'centered_around',subpop{1}.objects.nucleus);
+set(subpop{1}.objects.cytoplasm.model,'radius',15,'eccentricity',0.9,'randomness',0.05,'centered_around',subpop{1}.objects.nucleus);
 
 
 add_object(subpop{1},'lipid_droplets');
@@ -98,19 +98,25 @@ markers1.MT.fiber.AddOperation(op);
 subpop{1}.compositing=Default_Compositing();
 set(subpop{1}.compositing,'container_weight',0);
 
-
+%----------------------------------------------------------------------------------
 %subpopulation 2
+%-----------------------------------------------------------------------------------
 subpop{2}=Subpopulation();
 subpop{2}.placement=Random_Placement();
 set(subpop{2}.placement,'boundary',100);
 
-add_object(subpop{2},'cytoplasm');
-subpop{2}.objects.cytoplasm.model=Cytoplasm_Model;
-set(subpop{2}.objects.cytoplasm.model,'radius',30,'eccentricity',0.2);
 
 add_object(subpop{2},'nucleus');
-subpop{2}.objects.nucleus.model=Centered_Nucleus_Model;
-set(subpop{2}.objects.nucleus.model,'centered_around',subpop{2}.objects.cytoplasm,'eccentricity',0);
+subpop{2}.objects.nucleus.model=Nucleus_Model;
+set(subpop{2}.objects.nucleus.model,'radius',1,'eccentricity',0);
+
+add_object(subpop{2},'cytoplasm');
+subpop{2}.objects.cytoplasm.model=Centered_Cytoplasm_Model;
+set(subpop{2}.objects.cytoplasm.model,'radius',25,'eccentricity',0,'centered_around',subpop{2}.objects.nucleus);
+
+
+
+
 
 markers1=subpop{2}.markers;
 
@@ -187,9 +193,9 @@ subpop{2}.add_cell_artifact(op);
 %set(op,'falloff_type','Sigmoidal','falloff_radius',50);
 
 
-simucell_data.population_fractions=[0.5,0.5];
-simucell_data.number_of_cells=10;
-simucell_data.simucell_image_size=[500,500];
+simucell_data.population_fractions=[0.3,0.7];
+simucell_data.number_of_cells=20;
+simucell_data.simucell_image_size=[700,700];
 
 simucell_data.subpopulations=subpop;
 %simucell_data.overlap=overlap;
