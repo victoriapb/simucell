@@ -1,6 +1,6 @@
 close all
 
-m=test_script;
+m=insilico_cell_creation;
 im=m.RGB_image;
 
 
