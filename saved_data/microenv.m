@@ -372,7 +372,7 @@ simucell_data.population_fractions=[1];
 simucell_data.subpopulations=subpop;
 
 % To invoke the engine
-%simucell_result=simucell_engine(simucell_data);
-%image(a);
+simucell_result=simucell_engine(simucell_data);
+image(a);
 %axis off;
 %axis equal;
