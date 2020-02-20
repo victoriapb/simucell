@@ -6,7 +6,7 @@ im=m.RGB_image;
 
 x0=10;
 y0=10;
-width=550;
+width=300;
 height=1000;
 set(gcf,'position',[x0,y0,width,height])
 subplot(3,1,1);

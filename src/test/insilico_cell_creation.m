@@ -94,11 +94,11 @@ subpop{2}.placement=Random_Placement();
 
 add_object(subpop{2},'nucleus');
 subpop{2}.objects.nucleus.model=Nucleus_Model;
-set(subpop{2}.objects.nucleus.model,'radius',1,'eccentricity',0);
+set(subpop{2}.objects.nucleus.model,'radius',2,'eccentricity',0);
 
 add_object(subpop{2},'cytoplasm');
 subpop{2}.objects.cytoplasm.model=Centered_Cytoplasm_Model;
-set(subpop{2}.objects.cytoplasm.model,'radius',25,'eccentricity',0,'centered_around',subpop{2}.objects.nucleus);
+set(subpop{2}.objects.cytoplasm.model,'radius',30,'eccentricity',0.2,'randomness',0.2,'centered_around',subpop{2}.objects.nucleus);
 
 
 
@@ -135,7 +135,7 @@ set(subpop{2}.compositing,'container_weight',0);
 
 
 
-simucell_data.population_fractions=[0.3,0.7];
+simucell_data.population_fractions=[0.4,0.6];
 simucell_data.number_of_cells=20;
 simucell_data.simucell_image_size=[700,700];
 
