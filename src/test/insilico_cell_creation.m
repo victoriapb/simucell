@@ -14,7 +14,7 @@ subpop{1}=Subpopulation();
 
 subpop{1}.placement=Nearby_Placement();
 set(subpop{1}.placement,'distance_to_existing',20);
-set(subpop{1}.placement,'clustering_probability',0.8);
+%set(subpop{1}.placement,'clustering_probability',0.8);
 
 %set objects
 add_object(subpop{1},'nucleus');
@@ -23,27 +23,13 @@ set(subpop{1}.objects.nucleus.model,'radius',1,'eccentricity',0);
 
 add_object(subpop{1},'cytoplasm');
 subpop{1}.objects.cytoplasm.model=Centered_Cytoplasm_Model;
-set(subpop{1}.objects.cytoplasm.model,'radius',15,'eccentricity',0.9,'randomness',0.05,'centered_around',subpop{1}.objects.nucleus);
-
-add_object(subpop{1},'lipid_droplets');
-subpop{1}.objects.lipid_droplets.model=Lipid_Droplet_Model;
-set(subpop{1}.objects.lipid_droplets.model,'droplet_radius',5,...
-    'number_of_droplets',5,'number_of_clusters',2,...
-    'nucleus',subpop{1}.objects.nucleus);
-
-set(subpop{1}.objects.lipid_droplets.model,'droplet_radius',5,...
-    'number_of_droplets',5,'number_of_clusters',2,...
-    'nucleus',subpop{1}.objects.nucleus,'cytoplasm',subpop{1}.objects.cytoplasm);
-
-add_object(subpop{1},'fiber');
-subpop{1}.objects.fiber.model=Microtubule_Fibre_Model;
-set(subpop{1}.objects.fiber.model,'nucleus',subpop{1}.objects.nucleus,...
-    'cytoplasm',subpop{1}.objects.cytoplasm);
+set(subpop{1}.objects.cytoplasm.model,'radius',15,...
+    'eccentricity',0.9,'randomness',0.05,'centered_around',subpop{1}.objects.nucleus);
 
 %set markers 
 markers1=subpop{1}.markers;
 
-add_marker(subpop{1},'DAPI',Colors.Blue);
+add_marker(subpop{1},'DAPI',Colors.Green);
 op=Constant_Marker_Level();
 set(op,'mean_level',1,'sd_level',0);
 markers1.DAPI.nucleus.AddOperation(op);
@@ -51,26 +37,16 @@ markers1.DAPI.nucleus.AddOperation(op);
 op=Constant_Marker_Level();
 set(op,'mean_level',1,'sd_level',0);
 markers1.DAPI.cytoplasm.AddOperation(op);
-op=Constant_Dependant_Marker_Level();
-set(op,'marker',markers1.DAPI.cytoplasm,'region',subpop{1}.objects.nucleus,'slope',0.5);
-markers1.DAPI.nucleus.AddOperation(op);
 
 add_marker(subpop{1},'Actin',Colors.Green);
 op=Constant_Marker_Level();
 set(op,'mean_level',1,'sd_level',0);
 markers1.Actin.cytoplasm.AddOperation(op);
 
-set(op,'mean_level',1,'sd_level',0);
-markers1.Actin.lipid_droplets.AddOperation(op);
-
-add_marker(subpop{1},'MT',Colors.Red);
+add_marker(subpop{1},'MT',Colors.Green);
 op=Constant_Marker_Level();
 set(op,'mean_level',1,'sd_level',0);
 markers1.MT.nucleus.AddOperation(op);
-
-op=Constant_Marker_Level();
-set(op,'mean_level',1,'sd_level',0);
-markers1.MT.fiber.AddOperation(op);
 
 
 subpop{1}.compositing=Default_Compositing();
@@ -94,18 +70,19 @@ set(subpop{2}.objects.nucleus.model,'radius',1,'eccentricity',0);
 
 add_object(subpop{2},'cytoplasm');
 subpop{2}.objects.cytoplasm.model=Centered_Cytoplasm_Model;
-set(subpop{2}.objects.cytoplasm.model,'radius',30,'eccentricity',0.2,'randomness',0.2,'centered_around',subpop{2}.objects.nucleus);
+set(subpop{2}.objects.cytoplasm.model,'radius',30,...
+'eccentricity',0.2,'randomness',0.2,'centered_around',subpop{2}.objects.nucleus);
 
 %markers 
 markers1=subpop{2}.markers;
 
-add_marker(subpop{2},'DAPI',Colors.Blue);
+add_marker(subpop{2},'DAPI',Colors.Green);
 op=Constant_Marker_Level();
 set(op,'mean_level',1,'sd_level',0);
 markers1.DAPI.cytoplasm.AddOperation(op);
 
-op=Constant_Dependant_Marker_Level();
-set(op,'marker',markers1.DAPI.cytoplasm,'region',subpop{2}.objects.nucleus,'slope',0.5);
+op=Constant_Marker_Level();
+set(op,'mean_level',1,'sd_level',0);
 markers1.DAPI.nucleus.AddOperation(op);
 
 add_marker(subpop{2},'Actin',Colors.Green);
@@ -113,14 +90,14 @@ op=Constant_Marker_Level();
  set(op,'mean_level',1,'sd_level',0);
  markers1.Actin.cytoplasm.AddOperation(op);
 
+ op=Constant_Marker_Level();
+set(op,'mean_level',1,'sd_level',0);
+markers1.Actin.nucleus.AddOperation(op);
+ 
 add_marker(subpop{2},'MT',Colors.Green);
 op=Constant_Marker_Level();
 set(op,'mean_level',1,'sd_level',0); 
  markers1.MT.nucleus.AddOperation(op);
-
-op=Constant_Marker_Level();
-set(op,'mean_level',1,'sd_level',0);
-markers1.Actin.nucleus.AddOperation(op);
 
 subpop{2}.compositing=Default_Compositing();
 set(subpop{2}.compositing,'container_weight',0);
